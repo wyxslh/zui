@@ -161,5 +161,6 @@
   "No": "无",
   "None": "无",
   "Failed to scan": "扫描失败",
-  "Unverified Signature": "未验证签名"
+  "Unverified Signature": "未验证签名",
+  "Use the ':' character to search for tags": "使用 ':' 字符搜索标签"
 }
