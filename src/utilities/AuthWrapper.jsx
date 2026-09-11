@@ -4,8 +4,8 @@ import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   topMargin: {
-    marginTop: '10vh',
-    minHeight: '90vh',
+    boxSizing: 'border-box',
+    paddingTop: '5rem',
     height: '100%'
   }
 }));

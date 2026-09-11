@@ -1,9 +1,12 @@
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 // components
 import { Button, Dialog, DialogTitle, DialogActions } from '@mui/material';
 
 export default function DeleteTagConfirmDialog(props) {
+  const { t } = useTranslation();
   const { onClose, open, title, onConfirm } = props;
 
   return (
@@ -11,7 +14,7 @@ export default function DeleteTagConfirmDialog(props) {
       <DialogTitle> {title} </DialogTitle>
       <DialogActions style={{ justifyContent: 'center' }}>
         <Button data-testid="cancel-delete" variant="contained" onClick={onClose} color="primary">
-          Cancel
+          {t('Cancel')}
         </Button>
         <Button
           data-testid="confirm-delete"
@@ -22,7 +25,7 @@ export default function DeleteTagConfirmDialog(props) {
             onClose();
           }}
         >
-          Delete
+          {t('Delete')}
         </Button>
       </DialogActions>
     </Dialog>

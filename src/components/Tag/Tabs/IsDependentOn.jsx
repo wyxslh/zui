@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { isEmpty } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 // utility
 import { api, endpoints } from '../../../api';
@@ -28,6 +29,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function IsDependentOn(props) {
+  const { t } = useTranslation();
   const [images, setImages] = useState([]);
   const { name } = props;
   const classes = useStyles();
@@ -115,7 +117,7 @@ function IsDependentOn(props) {
         );
       })
     ) : (
-      <div>{!isLoading && <Typography className={classes.none}> Nothing found </Typography>}</div>
+      <div>{!isLoading && <Typography className={classes.none}> {t('Nothing found')} </Typography>}</div>
     );
   };
 
@@ -132,7 +134,7 @@ function IsDependentOn(props) {
   return (
     <div data-testid="dependents-container">
       <Typography variant="h4" gutterBottom component="div" align="left" className={classes.title}>
-        Used by
+        {t('Used by')}
       </Typography>
       <Stack direction="column" spacing={2}>
         <Stack direction="column" spacing={2}>

@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { Card, CardContent, Stack, Tooltip, Typography, Collapse, Box, Grid } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@mui/icons-material';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles(() => ({
   refCard: {
@@ -64,6 +65,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ReferrerCard(props) {
+  const { t } = useTranslation();
   const { artifactType, mediaType, size, digest, annotations } = props;
   const [digestDropdownOpen, setDigestDropdownOpen] = useState(false);
   const [annotationDropdownOpen, setAnnotationDropdownOpen] = useState(false);
@@ -73,13 +75,13 @@ export default function ReferrerCard(props) {
     <Card className={classes.card} raised>
       <CardContent className={classes.content}>
         <Typography variant="body1" align="left" className={classes.cardText}>
-          Type: {artifactType && `${artifactType}`}
+          {t('Type: {{type}}', { type: artifactType || '' })}
         </Typography>
         <Typography variant="body1" align="left" className={classes.cardText}>
-          Media type: {mediaType && `${mediaType}`}
+          {t('Media type: {{mediaType}}', { mediaType: mediaType || '' })}
         </Typography>
         <Typography variant="body1" align="left" className={classes.cardText}>
-          Size: {size && `${size}`}
+          {t('Size: {{size}}', { size: size || '' })}
         </Typography>
         <Stack direction="row" onClick={() => setDigestDropdownOpen(!digestDropdownOpen)}>
           {!digestDropdownOpen ? (
@@ -96,7 +98,7 @@ export default function ReferrerCard(props) {
               cursor: 'pointer'
             }}
           >
-            DIGEST
+            {t('DIGEST')}
           </Typography>
         </Stack>
         <Collapse in={digestDropdownOpen} timeout="auto" unmountOnExit>
@@ -124,7 +126,7 @@ export default function ReferrerCard(props) {
               cursor: 'pointer'
             }}
           >
-            ANNOTATIONS
+            {t('ANNOTATIONS')}
           </Typography>
         </Stack>
         <Collapse in={annotationDropdownOpen} timeout="auto" unmountOnExit>

@@ -1,6 +1,7 @@
 // react global
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import { isAuthenticated, isAuthenticationEnabled, logoutUser } from '../../utilities/authUtilities';
 
@@ -127,6 +128,7 @@ function setNavShow() {
 }
 
 function Header({ setSearchCurrentValue = () => {} }) {
+  const { t } = useTranslation();
   const show = setNavShow();
   const classes = useStyles();
   const path = useLocation().pathname;
@@ -150,7 +152,7 @@ function Header({ setSearchCurrentValue = () => {} }) {
             </Grid>
             <Grid item className={classes.headerLinkContainer}>
               <a className={classes.link} href="https://zotregistry.dev" target="_blank" rel="noreferrer">
-                Product
+                {t('Product')}
               </a>
             </Grid>
             <Grid item className={classes.headerLinkContainer}>
@@ -160,7 +162,7 @@ function Header({ setSearchCurrentValue = () => {} }) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Docs
+                {t('Docs')}
               </a>
             </Grid>
           </Grid>
@@ -181,7 +183,7 @@ function Header({ setSearchCurrentValue = () => {} }) {
             {!isAuthenticated() && isAuthenticationEnabled() && (
               <Grid item>
                 <Button className={classes.signInBtn} onClick={handleSignInClick}>
-                  Sign in
+                  {t('Sign in')}
                 </Button>
               </Grid>
             )}

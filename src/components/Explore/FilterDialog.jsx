@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogContent,
@@ -16,6 +17,7 @@ import { sortByCriteria } from 'utilities/sortCriteria.js';
 const useStyles = makeStyles(() => ({}));
 
 function FilterDialog(props) {
+  const { t } = useTranslation();
   const { open, setOpen, sortValue, setSortValue, renderFilterCards } = props;
 
   const classes = useStyles();
@@ -30,14 +32,14 @@ function FilterDialog(props) {
 
   return (
     <Dialog open={open} onClose={handleClose} fullScreen>
-      <DialogTitle>Filter</DialogTitle>
+      <DialogTitle>{t('Filter')}</DialogTitle>
       <DialogContent>
-        <DialogContentText>Sort results</DialogContentText>
+        <DialogContentText>{t('Sort results')}</DialogContentText>
         <FormControl sx={{ m: '1', width: '80%' }} className={`${classes.sortForm}`} size="small">
-          <Select label="Sort" value={sortValue} onChange={handleSortChange} MenuProps={{ disableScrollLock: true }}>
+          <Select label={t('Sort')} value={sortValue} onChange={handleSortChange} MenuProps={{ disableScrollLock: true }}>
             {Object.values(sortByCriteria).map((el) => (
               <MenuItem key={el.value} value={el.value}>
-                {el.label}
+                {t(el.label)}
               </MenuItem>
             ))}
           </Select>
@@ -45,7 +47,7 @@ function FilterDialog(props) {
         {renderFilterCards()}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Confirm</Button>
+        <Button onClick={handleClose}>{t('Confirm')}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import PhotoIcon from '@mui/icons-material/Photo';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { api, endpoints } from 'api';
 import { host } from 'host';
 import { mapToImage, mapToRepo } from 'utilities/objectModels';
@@ -108,6 +109,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function SearchSuggestion({ setSearchCurrentValue = () => {} }) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestionData, setSuggestionData] = useState([]);
   const [queryParams] = useSearchParams();
@@ -287,7 +289,7 @@ function SearchSuggestion({ setSearchCurrentValue = () => {} }) {
         {...getComboboxProps()}
       >
         <InputBase
-          placeholder={'Search for content...'}
+          placeholder={t('Search for content...')}
           className={`${classes.input} ${isComponentFocused && classes.inputFocused}`}
           sx={{ input: { '&::placeholder': { opacity: 1 } } }}
           onKeyUp={handleSearch}
@@ -316,7 +318,7 @@ function SearchSuggestion({ setSearchCurrentValue = () => {} }) {
               spacing={2}
             >
               <Stack direction="row" spacing={2}>
-                <Typography>Loading...</Typography>
+                <Typography>{t('Loading...')}</Typography>
               </Stack>
             </ListItem>
           </>
@@ -331,7 +333,7 @@ function SearchSuggestion({ setSearchCurrentValue = () => {} }) {
               onClick={() => {}}
             >
               <Stack direction="row" spacing={2}>
-                <Typography>Press Enter for advanced search</Typography>
+                <Typography>{t('Press Enter for advanced search')}</Typography>
               </Stack>
             </ListItem>
             <ListItem
@@ -342,7 +344,7 @@ function SearchSuggestion({ setSearchCurrentValue = () => {} }) {
               onClick={() => {}}
             >
               <Stack direction="row" spacing={2}>
-                <Typography>Use the &apos;:&apos; character to search for tags</Typography>
+                <Typography>{t('Use the \':\' character to search for tags')}</Typography>
               </Stack>
             </ListItem>
           </>

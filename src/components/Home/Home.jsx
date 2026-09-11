@@ -1,5 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useTranslation } from 'react-i18next';
 import { api, endpoints } from 'api';
 import { host } from '../../host';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -87,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Home() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [popularData, setPopularData] = useState([]);
   const [isLoadingPopular, setIsLoadingPopular] = useState(true);
@@ -282,18 +284,18 @@ function Home() {
 
   const renderContent = () => {
     return isNoData() === true ? (
-      <NoDataComponent text="No images" />
+      <NoDataComponent text={t('No images')} />
     ) : (
       <Stack alignItems="center" className={classes.gridWrapper}>
         <Stack className={classes.sectionHeaderContainer} sx={{ paddingTop: '3rem' }}>
           <div>
             <Typography variant="h4" align="left" className={classes.sectionTitle}>
-              Most popular images
+              {t('Most popular images')}
             </Typography>
           </div>
           <div onClick={() => handleClickViewAll('sortby', sortByCriteria.downloads.value)}>
             <Typography variant="body2" className={classes.viewAll}>
-              View all
+              {t('View all')}
             </Typography>
           </div>
         </Stack>
@@ -302,7 +304,7 @@ function Home() {
         <Stack className={classes.sectionHeaderContainer}>
           <div>
             <Typography variant="h4" align="left" className={classes.sectionTitle}>
-              Recently updated images
+              {t('Recently updated images')}
             </Typography>
           </div>
           <div>
@@ -311,7 +313,7 @@ function Home() {
               className={classes.viewAll}
               onClick={() => handleClickViewAll('sortby', sortByCriteria.updateTime.value)}
             >
-              View all
+              {t('View all')}
             </Typography>
           </div>
         </Stack>
@@ -321,7 +323,7 @@ function Home() {
             <Stack className={classes.sectionHeaderContainer}>
               <div>
                 <Typography variant="h4" align="left" className={classes.sectionTitle}>
-                  Bookmarks
+                  {t('Bookmarks')}
                 </Typography>
               </div>
               <div>
@@ -330,7 +332,7 @@ function Home() {
                   className={classes.viewAll}
                   onClick={() => handleClickViewAll('filter', 'IsBookmarked')}
                 >
-                  View all
+                  {t('View all')}
                 </Typography>
               </div>
             </Stack>
@@ -342,7 +344,7 @@ function Home() {
             <Stack className={classes.sectionHeaderContainer}>
               <div>
                 <Typography variant="h4" align="left" className={classes.sectionTitle}>
-                  Stars
+                  {t('Stars')}
                 </Typography>
               </div>
               <div>
@@ -351,7 +353,7 @@ function Home() {
                   className={classes.viewAll}
                   onClick={() => handleClickViewAll('filter', 'IsStarred')}
                 >
-                  View all
+                  {t('View all')}
                 </Typography>
               </div>
             </Stack>

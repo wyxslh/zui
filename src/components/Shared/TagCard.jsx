@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { Box, Card, CardContent, Collapse, Grid, Stack, Tooltip, Typography, Divider } from '@mui/material';
 import { Markdown } from 'utilities/MarkdowntojsxWrapper';
 import transform from 'utilities/transform';
@@ -79,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TagCard(props) {
+  const { t } = useTranslation();
   const { repoName, showRepoName = true, tag, lastUpdated, vendor, manifests, repo, onTagDelete, isDeletable } = props;
   const [open, setOpen] = useState(false);
 
@@ -86,7 +88,7 @@ export default function TagCard(props) {
 
   const lastDate = lastUpdated
     ? DateTime.fromISO(lastUpdated).toRelative({ unit: ['weeks', 'days', 'hours', 'minutes'] })
-    : `Timestamp N/A`;
+    : t('Timestamp N/A');
   const navigate = useNavigate();
 
   // Always navigate with the absolute, encoded path -- a relative navigate('tag/...')
@@ -101,7 +103,7 @@ export default function TagCard(props) {
       <CardContent className={classes.content}>
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Typography variant="body1" align="left" className={classes.tagHeading}>
-            Tag
+            {t('Tag')}
           </Typography>
           {isDeletable && <DeleteTag repo={repo} tag={tag} onTagDelete={onTagDelete} />}
         </Stack>
@@ -112,11 +114,11 @@ export default function TagCard(props) {
 
         <Stack sx={{ display: 'inline' }} direction="row" spacing={0.5}>
           <Typography variant="caption" sx={{ fontWeight: '400', fontSize: '0.8125rem' }}>
-            Created
+            {t('Created')}
           </Typography>
           <Tooltip title={lastUpdated?.slice(0, 16) || ' '} placement="top">
             <Typography variant="caption" sx={{ fontWeight: '600', fontSize: '0.8125rem' }}>
-              {lastDate} by <Markdown options={{ forceInline: true }}>{vendor || 'Vendor not available'}</Markdown>
+              {lastDate} by <Markdown options={{ forceInline: true }}>{vendor || t('Vendor not available')}</Markdown>
             </Typography>
           </Tooltip>
         </Stack>
@@ -127,18 +129,18 @@ export default function TagCard(props) {
           ) : (
             <KeyboardArrowDown className={classes.dropdownText} />
           )}
-          <Typography className={classes.dropdownToggle}>{!open ? `Show more` : `Show less`}</Typography>
+          <Typography className={classes.dropdownToggle}>{!open ? t('Show more') : t('Show less')}</Typography>
         </Stack>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box className={classes.manifsetsTable}>
             <Grid container item xs={12} direction={'row'}>
               <Grid item xs={6} md={6}>
                 <Typography variant="body1" className={classes.tableHeaderText}>
-                  DIGEST
+                  {t('DIGEST')}
                 </Typography>
               </Grid>
               <Grid item xs={6} md={3} className={classes.tableHeaderText}>
-                <Typography variant="body1">OS/Arch</Typography>
+                <Typography variant="body1">{t('OS/Arch')}</Typography>
               </Grid>
               <Grid
                 item
@@ -147,7 +149,7 @@ export default function TagCard(props) {
                 className={`${classes.tableHeaderText} hide-on-mobile`}
                 sx={{ display: 'flex', justifyContent: 'flex-end' }}
               >
-                <Typography variant="body1"> COMPRESSED SIZE </Typography>
+                <Typography variant="body1"> {t('COMPRESSED SIZE')} </Typography>
               </Grid>
             </Grid>
 

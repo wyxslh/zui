@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { isNil, isNumber } from 'lodash';
 import { DateTime } from 'luxon';
+import { useTranslation } from 'react-i18next';
 import { api, endpoints } from 'api';
 import { host } from 'host';
 
@@ -45,6 +46,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ApiKeyDialog(props) {
+  const { t } = useTranslation();
   const { open, setOpen, onConfirm } = props;
 
   const [apiKeyLabel, setApiKeyLabel] = useState();
@@ -99,12 +101,12 @@ function ApiKeyDialog(props) {
 
   const getExpirationDisplay = () => {
     const expDateTime = getExpirationDatetime();
-    return `Expires on ${expDateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`;
+    return t('Expires on {{date}}', { date: expDateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY) });
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create Api Key</DialogTitle>
+      <DialogTitle>{t('Create Api Key')}</DialogTitle>
       <DialogContent className={classes.apiKeyForm}>
         <Grid container className={classes.gridWrapper}>
           <Grid item container className={classes.apiKeyLabel} xs={12}>
@@ -112,7 +114,7 @@ function ApiKeyDialog(props) {
               autoFocus
               required
               id="apikeylabel"
-              label="Label"
+              label={t('Label')}
               fullWidth
               variant="outlined"
               onChange={handleLabelChange}
@@ -121,20 +123,20 @@ function ApiKeyDialog(props) {
           <Grid container item xs={12}>
             <Grid item xs={5}>
               <FormControl className={classes.expirationDateContainer} size="small" required>
-                <InputLabel disableAnimation>Expiration date</InputLabel>
+                <InputLabel disableAnimation>{t('Expiration date')}</InputLabel>
                 <Select
                   labelId="expirationDate"
                   id="expirationDate"
-                  label="Expiration time"
+                  label={t('Expiration time')}
                   onChange={handleExpirationDateChange}
                   value={expirationDateOffset}
                   className={classes.expirationDateInput}
                 >
-                  <MenuItem value={7}>7 days</MenuItem>
-                  <MenuItem value={30}>30 days</MenuItem>
-                  <MenuItem value={60}>60 days</MenuItem>
-                  <MenuItem value={90}>90 days</MenuItem>
-                  <MenuItem value="custom">custom</MenuItem>
+                  <MenuItem value={7}>{t('7 days')}</MenuItem>
+                  <MenuItem value={30}>{t('30 days')}</MenuItem>
+                  <MenuItem value={60}>{t('60 days')}</MenuItem>
+                  <MenuItem value={90}>{t('90 days')}</MenuItem>
+                  <MenuItem value="custom">{t('custom')}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -159,10 +161,10 @@ function ApiKeyDialog(props) {
           onClick={handleSubmit}
           disabled={expirationDateOffset === 'custom' && isNil(selectedExpirationDate)}
         >
-          Create
+          {t('Create')}
         </Button>
         <Button variant="outlined" onClick={handleClose}>
-          Cancel
+          {t('Cancel')}
         </Button>
       </DialogActions>
     </Dialog>

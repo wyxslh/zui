@@ -1,5 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // utility
 import { api, endpoints } from '../../api';
@@ -127,6 +128,7 @@ const NON_ARTIFACT_CONFIG_MEDIA_TYPES = new Set([
 ]);
 
 function TagDetails() {
+  const { t } = useTranslation();
   const [imageDetailData, setImageDetailData] = useState({});
   const [selectedManifest, setSelectedManifest] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -298,10 +300,10 @@ function TagDetails() {
                     {imageDetailData?.manifests && imageDetailData.manifests.length > 0 && (
                       <Stack direction="row" alignItems="center" spacing="1rem">
                         <FormControl sx={{ m: '1', minWidth: '4.6875rem' }} className={classes.sortForm} size="small">
-                          <InputLabel>OS/Arch</InputLabel>
+                          <InputLabel>{t('OS/Arch')}</InputLabel>
                           {!isEmpty(selectedManifest) && (
                             <Select
-                              label="OS/Arch"
+                              label={t('OS/Arch')}
                               value={selectedManifest}
                               onChange={handleOSArchChange}
                               MenuProps={{ disableScrollLock: true }}
@@ -315,11 +317,11 @@ function TagDetails() {
                           )}
                         </FormControl>
                         <Typography gutterBottom className={classes.digest}>
-                          Digest: {selectedManifest?.digest}
+                          {t('Digest: {{digest}}', { digest: selectedManifest?.digest || '' })}
                         </Typography>
                         {isArtifact && (
                           <Typography gutterBottom className={classes.digest} data-testid="artifact-type-inline">
-                            Artifact Type: {artifactType}
+                            {t('Artifact Type: {{type}}', { type: artifactType })}
                           </Typography>
                         )}
                       </Stack>
@@ -343,19 +345,19 @@ function TagDetails() {
               disabled={isLoading}
             >
               <ToggleButton value="Layers" role="tab">
-                Layers
+                {t('Layers')}
               </ToggleButton>
               <ToggleButton value="DependsOn" role="tab" data-testid="dependencies-tab">
-                Uses
+                {t('Uses')}
               </ToggleButton>
               <ToggleButton value="IsDependentOn" role="tab">
-                Used by
+                {t('Used by')}
               </ToggleButton>
               <ToggleButton value="Vulnerabilities" role="tab">
-                Vulnerabilities
+                {t('Vulnerabilities')}
               </ToggleButton>
               <ToggleButton value="ReferredBy" role="tab">
-                Referred by
+                {t('Referred by')}
               </ToggleButton>
             </ToggleButtonGroup>
           </Grid>

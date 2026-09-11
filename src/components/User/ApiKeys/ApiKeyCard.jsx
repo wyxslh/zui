@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { DateTime } from 'luxon';
 import { isNil } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { Card, CardContent, Typography, Grid, Divider, Stack, Collapse, Button } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@mui/icons-material';
@@ -91,6 +92,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ApiKeyCard(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const { apiKey, onRevoke } = props;
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -98,7 +100,7 @@ function ApiKeyCard(props) {
 
   const getExpirationDisplay = () => {
     const expDateTime = DateTime.fromISO(apiKey.expirationDate);
-    return `Expires on ${expDateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}`;
+    return t('Expires on {{date}}', { date: expDateTime.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY) });
   };
 
   const handleApiKeyRevokeDialogOpen = () => {
@@ -121,7 +123,7 @@ function ApiKeyCard(props) {
           </Grid>
           <Grid item xs={2} className={classes.revokeButton}>
             <Button color="error" variant="contained" onClick={handleApiKeyRevokeDialogOpen}>
-              Revoke
+              {t('Revoke')}
             </Button>
           </Grid>
           {!isNil(apiKey.apiKey) && (
@@ -136,7 +138,7 @@ function ApiKeyCard(props) {
                   ) : (
                     <KeyboardArrowDown className={classes.dropdownText} />
                   )}
-                  <Typography className={classes.dropdownButton}>KEY</Typography>
+                  <Typography className={classes.dropdownButton}>{t('KEY')}</Typography>
                 </Stack>
                 <Collapse in={openDropdown} timeout="auto" unmountOnExit sx={{ marginTop: '1rem' }}>
                   <Stack direction="column" spacing="1.2rem">

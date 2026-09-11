@@ -3,6 +3,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import { DateTime } from 'luxon';
 import { Markdown } from 'utilities/MarkdowntojsxWrapper';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import transform from '../../utilities/transform';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,22 +43,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RepoDetailsMetadata(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const { repoURL, totalDownloads, lastUpdated, size, license, description } = props;
 
   const lastDate = lastUpdated
     ? DateTime.fromISO(lastUpdated).toRelative({ unit: ['weeks', 'days', 'hours', 'minutes'] })
-    : `Timestamp N/A`;
+    : t('Timestamp N/A');
   return (
     <Grid container spacing={1}>
       <Grid container item xs={12}>
         <Card variant="outlined" className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" align="left" className={classes.metadataHeader}>
-              Repository
+              {t('Repository')}
             </Typography>
             <Typography variant="body1" align="left" className={classes.metadataBody}>
-              {repoURL || `not available`}
+              {repoURL || t('not available')}
             </Typography>
           </CardContent>
         </Card>
@@ -66,10 +68,10 @@ function RepoDetailsMetadata(props) {
         <Card variant="outlined" className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" align="left" className={classes.metadataHeader}>
-              Total downloads
+              {t('Total downloads')}
             </Typography>
             <Typography variant="body1" align="left" className={classes.metadataBody}>
-              {!isNaN(totalDownloads) ? totalDownloads : `not available`}
+              {!isNaN(totalDownloads) ? totalDownloads : t('not available')}
             </Typography>
           </CardContent>
         </Card>
@@ -79,7 +81,7 @@ function RepoDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                Last publish
+                {t('Last publish')}
               </Typography>
               <Tooltip title={lastUpdated?.slice(0, 16) || ' '} placement="top">
                 <Typography variant="body1" align="left" className={classes.metadataBody}>
@@ -93,7 +95,7 @@ function RepoDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                Total size
+                {t('Total size')}
               </Typography>
               <Typography variant="body1" align="left" className={classes.metadataBody}>
                 {transform.formatBytes(size) || `----`}
@@ -107,11 +109,11 @@ function RepoDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                License
+                {t('License')}
               </Typography>
               <Tooltip title={license || ' '} placement="top">
                 <Typography variant="body1" align="left" className={classes.metadataBody}>
-                  {license ? <Markdown>{license}</Markdown> : `License info not available`}
+                  {license ? <Markdown>{license}</Markdown> : t('License info not available')}
                 </Typography>
               </Tooltip>
             </CardContent>
@@ -123,10 +125,10 @@ function RepoDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                Description
+                {t('Description')}
               </Typography>
               <Typography variant="body1" align="left" className={classes.metadataBody}>
-                {description ? <Markdown>{description}</Markdown> : `Description not available`}
+                {description ? <Markdown>{description}</Markdown> : t('Description not available')}
               </Typography>
             </CardContent>
           </Card>

@@ -1,6 +1,7 @@
 // react global
 import React, { useMemo, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 // utility
 import { DateTime } from 'luxon';
@@ -155,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RepoCard(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -232,7 +234,7 @@ function RepoCard(props) {
     const filteredPlatforms = uniq(platforms?.flatMap((platform) => [platform.Os, platform.Arch]));
     const hiddenChips = filteredPlatforms.length - MAX_PLATFORM_CHIPS;
     const displayedPlatforms = filteredPlatforms.slice(0, MAX_PLATFORM_CHIPS + 1);
-    if (hiddenChips > 0) displayedPlatforms.push(`+${hiddenChips} more`);
+    if (hiddenChips > 0) displayedPlatforms.push(t('+{{count}} more', { count: hiddenChips }));
     return displayedPlatforms.map((platform, index) => (
       <Chip
         key={`${name}${platform}${index}`}
@@ -247,15 +249,15 @@ function RepoCard(props) {
   };
 
   const getVendor = () => {
-    return `${vendor || 'Vendor not available'} •`;
+    return `${vendor || t('Vendor not available')} •`;
   };
   const getVersion = () => {
-    return `published ${version} •`;
+    return t('published {{version}} •', { version });
   };
   const getLast = () => {
     const lastDate = lastUpdated
       ? DateTime.fromISO(lastUpdated).toRelative({ unit: ['weeks', 'days', 'hours', 'minutes'] })
-      : `Timestamp N/A`;
+      : t('Timestamp N/A');
     return lastDate;
   };
 
@@ -333,9 +335,9 @@ function RepoCard(props) {
                 </div>
                 {getSignatureChips()}
               </Stack>
-              <Tooltip title={description || 'Description not available'} placement="top">
+              <Tooltip title={description || t('Description not available')} placement="top">
                 <Typography className={classes.description} pt={1} sx={{ fontSize: 12 }} gutterBottom noWrap>
-                  {description || 'Description not available'}
+                  {description || t('Description not available')}
                 </Typography>
               </Tooltip>
               <Stack alignItems="center" direction="row" spacing={1} pt={1}>
@@ -362,10 +364,10 @@ function RepoCard(props) {
             <Grid item container xs={2} md={2} className={`hide-on-mobile ${classes.contentRight}`}>
               <Grid item xs={12}>
                 <Typography variant="body2" component="span" className={classes.contentRightLabel}>
-                  Downloads •
+                  {t('Downloads •')}
                 </Typography>
                 <Typography variant="body2" component="span" className={classes.contentRightValue}>
-                  {!isNaN(downloads) ? downloads : `not available`}
+                  {!isNaN(downloads) ? downloads : t('not available')}
                 </Typography>
               </Grid>
               {/* <Grid item xs={12}>
@@ -379,10 +381,10 @@ function RepoCard(props) {
               <Grid item xs={12}>
                 {renderStar()}
                 <Typography variant="body2" component="span" className={classes.contentRightLabel}>
-                  Stars •
+                  {t('Stars •')}
                 </Typography>
                 <Typography variant="body2" component="span" className={classes.contentRightValue}>
-                  {!isNaN(currentStarCount) ? currentStarCount : `not available`}
+                  {!isNaN(currentStarCount) ? currentStarCount : t('not available')}
                 </Typography>
               </Grid>
               <Grid container item xs={12} className={classes.contentRightActions}>

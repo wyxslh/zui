@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { isEmpty, isNil } from 'lodash';
 import { api, endpoints } from 'api';
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ApiKeys() {
+  const { t } = useTranslation();
   const abortController = useMemo(() => new AbortController(), []);
   const [isLoading, setIsLoading] = useState(true);
   const [apiKeys, setApiKeys] = useState([]);
@@ -111,10 +113,10 @@ function ApiKeys() {
                   <Grid item xs={12}>
                     <Stack direction="row" justifyContent="space-between">
                       <Typography variant="h4" className={classes.pageTitle}>
-                        Manage your API Keys
+                        {t('Manage your API Keys')}
                       </Typography>
                       <Button variant="contained" color="success" onClick={handleApiKeyDialogOpen}>
-                        Create new API key
+                        {t('Create new API key')}
                       </Button>
                     </Stack>
                   </Grid>

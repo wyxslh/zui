@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // utility
 import { api, endpoints } from '../../../api';
@@ -144,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function VulnerabilitiesDetails(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [cveData, setCveData] = useState([]);
   const [allCveData, setAllCveData] = useState([]);
@@ -345,7 +347,7 @@ function VulnerabilitiesDetails(props) {
         return <VulnerabilitiyCard key={index} cve={cve} name={name} platform={platform} expand={selectedViewMore} />;
       })
     ) : (
-      <div>{!isLoading && <Typography className={classes.none}> No Vulnerabilities </Typography>}</div>
+      <div>{!isLoading && <Typography className={classes.none}> {t('No Vulnerabilities')} </Typography>}</div>
     );
   };
 
@@ -383,7 +385,7 @@ function VulnerabilitiesDetails(props) {
     <Stack direction="column" spacing="1rem" data-testid="vulnerability-container">
       <Stack className={classes.vulnerabilities}>
         <Typography variant="h4" gutterBottom component="div" align="left" className={classes.title}>
-          Vulnerabilities
+          {t('Vulnerabilities')}
         </Typography>
         <Stack direction="row" spacing="1rem" className={classes.viewModes}>
           <IconButton disableRipple onClick={handleClickExport}>
@@ -391,12 +393,12 @@ function VulnerabilitiesDetails(props) {
           </IconButton>
           <Snackbar
             open={openExport && isLoadingAllCve}
-            message="Getting your data ready for export"
+            message={t('Getting your data ready for export')}
             action={<CircularProgress size="2rem" sx={{ color: '#FFFFFF' }} />}
           />
           <ToggleButton
             value="viewLess"
-            title="Collapse list view"
+            title={t('Collapse list view')}
             size="small"
             className={classes.view}
             selected={!selectedViewMore}
@@ -406,7 +408,7 @@ function VulnerabilitiesDetails(props) {
           </ToggleButton>
           <ToggleButton
             value="viewMore"
-            title="Expand list view"
+            title={t('Expand list view')}
             size="small"
             className={classes.view}
             selected={selectedViewMore}
@@ -437,7 +439,7 @@ function VulnerabilitiesDetails(props) {
             className={classes.popper}
             data-testid="export-csv-menuItem"
           >
-            csv
+            {t('csv')}
           </MenuItem>
           <Divider sx={{ my: 0.5 }} />
           <MenuItem
@@ -447,7 +449,7 @@ function VulnerabilitiesDetails(props) {
             className={classes.popper}
             data-testid="export-excel-menuItem"
           >
-            xlsx
+            {t('xlsx')}
           </MenuItem>
         </Menu>
       </Stack>
@@ -463,7 +465,7 @@ function VulnerabilitiesDetails(props) {
         <Stack className={classes.test} direction="column" spacing="0.25em">
           <Stack className={classes.search}>
             <InputBase
-              placeholder={'Search'}
+              placeholder={t('Search')}
               classes={{ root: classes.searchInputBase, input: classes.input }}
               onChange={debouncedChangeHandler}
             />
@@ -475,7 +477,7 @@ function VulnerabilitiesDetails(props) {
           <Collapse in={openExcludeSearch} timeout="auto" unmountOnExit>
             <Stack className={classes.search}>
               <InputBase
-                placeholder={'Exclude'}
+                placeholder={t('Exclude')}
                 classes={{ root: classes.searchInputBase, input: classes.input }}
                 onChange={debouncedExcludeFilterChangeHandler}
               />

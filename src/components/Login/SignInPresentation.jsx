@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Stack, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useTranslation } from 'react-i18next';
 
 import logoWhite from '../../assets/zotLogoWhiteHorizontal.svg';
 
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SigninPresentation() {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -44,7 +46,7 @@ export default function SigninPresentation() {
           <img src={logoWhite} alt="zot logo" className={classes.logo}></img>
         </div>
         <Typography variant="h2" className={classes.mainText}>
-          OCI-native container image registry, simplified
+          {t('OCI-native container image registry, simplified')}
         </Typography>
       </Stack>
     </div>

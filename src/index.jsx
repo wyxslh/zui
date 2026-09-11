@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.css';
+import './i18n';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

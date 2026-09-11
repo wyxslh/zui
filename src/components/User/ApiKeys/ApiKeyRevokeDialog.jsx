@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { api, endpoints } from 'api';
 import { host } from 'host';
@@ -25,6 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ApiKeyRevokeDialog(props) {
+  const { t } = useTranslation();
   const { open, setOpen, apiKey, onConfirm } = props;
 
   const classes = useStyles();
@@ -47,21 +49,21 @@ function ApiKeyRevokeDialog(props) {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Revoke &quot;{apiKey?.label}&quot; key</DialogTitle>
+      <DialogTitle>{t('Revoke "{{label}}" key', { label: apiKey?.label || '' })}</DialogTitle>
       <DialogContent className={classes.apiKeyForm}>
         <Grid container className={classes.gridWrapper}>
           <Grid item xs={12}>
-            <Typography>Are you sure you want to revoke this api key?</Typography>
+            <Typography>{t('Are you sure you want to revoke this api key?')}</Typography>
           </Grid>
         </Grid>
       </DialogContent>
 
       <DialogActions>
         <Button variant="contained" color="error" onClick={handleSubmit}>
-          Revoke
+          {t('Revoke')}
         </Button>
         <Button variant="outlined" onClick={handleClose}>
-          Close
+          {t('Close')}
         </Button>
       </DialogActions>
     </Dialog>

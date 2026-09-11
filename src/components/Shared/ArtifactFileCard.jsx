@@ -4,6 +4,7 @@ import transform from 'utilities/transform';
 
 import { Card, CardContent, Typography, Grid, Divider, Stack, Collapse, Tooltip, ButtonBase } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -85,6 +86,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ArtifactFileCard(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const { layer } = props;
   const [open, setOpen] = useState(false);
@@ -119,12 +121,12 @@ function ArtifactFileCard(props) {
                 ) : (
                   <KeyboardArrowDown className={classes.dropdownText} />
                 )}
-                <Typography className={classes.dropdownButton}>DETAILS</Typography>
+                <Typography className={classes.dropdownButton}>{t('DETAILS')}</Typography>
               </Stack>
             </ButtonBase>
             <Collapse id={detailsId} in={open} timeout="auto" unmountOnExit sx={{ marginTop: '1rem' }}>
               <Stack direction="column" spacing="1.2rem">
-                <Typography variant="body1">DIGEST</Typography>
+                <Typography variant="body1">{t('DIGEST')}</Typography>
                 <Typography variant="body1" align="left" className={classes.dropdownContentBox}>
                   {layer?.digest}
                 </Typography>

@@ -1,6 +1,7 @@
 // react global
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 // utility
 import { api, endpoints } from '../../api';
@@ -147,6 +148,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = () => {} }) {
+  const { t } = useTranslation();
   const [usernameError, setUsernameError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [username, setUsername] = useState('');
@@ -261,7 +263,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
   const handleUsernameValidation = (username) => {
     let isValid = true;
     if (username === '') {
-      setUsernameError('Please enter a username');
+      setUsernameError(t('Please enter a username'));
       isValid = false;
     } else {
       setUsernameError(null);
@@ -272,7 +274,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
   const handlePasswordValidation = (password) => {
     let isValid = true;
     if (password === '') {
-      setPasswordError('Please enter a password');
+      setPasswordError(t('Please enter a password'));
       isValid = false;
     } else {
       setPasswordError(null);
@@ -333,17 +335,17 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
           <CardContent className={classes.loginCardContent}>
             <CssBaseline />
             <Typography align="left" className={classes.text} component="h1" variant="h4">
-              Sign In
+              {t('Sign In')}
             </Typography>
             <Typography align="left" className={classes.subtext} variant="body1" gutterBottom>
-              Welcome back! Please login.
+              {t('Welcome back! Please login.')}
             </Typography>
             {renderThirdPartyLoginMethods()}
             {Object.keys(authMethods).length > 1 &&
               Object.keys(authMethods).includes('openid') &&
               Object.keys(authMethods.openid.providers).length > 0 && (
                 <Divider className={classes.divider} data-testid="openid-divider">
-                  or
+                  {t('or')}
                 </Divider>
               )}
             {Object.keys(authMethods).includes('htpasswd') && (
@@ -353,7 +355,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
                   required
                   fullWidth
                   id="username"
-                  label="Username"
+                  label={t('Username')}
                   name="username"
                   className={classes.textField}
                   inputProps={{ className: classes.textColor }}
@@ -368,7 +370,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
                   required
                   fullWidth
                   name="password"
-                  label="Enter password"
+                  label={t('Enter password')}
                   type="password"
                   id="password"
                   className={classes.textField}
@@ -382,7 +384,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
                 {requestProcessing && <CircularProgress style={{ marginTop: 20 }} color="secondary" />}
                 {requestError && (
                   <Alert style={{ marginTop: 20 }} severity="error">
-                    Authentication Failed. Please try again.
+                    {t('Authentication Failed. Please try again.')}
                   </Alert>
                 )}
                 <div>
@@ -395,7 +397,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
                     disabled={requestProcessing}
                     data-testid="basic-auth-submit-btn"
                   >
-                    Continue
+                    {t('Continue')}
                   </Button>
                 </div>
               </Box>
@@ -408,7 +410,7 @@ export default function SignIn({ isLoggedIn, setIsLoggedIn, wrapperSetLoading = 
                 className={classes.continueAsGuestButton}
                 onClick={handleGuestClick}
               >
-                Continue as guest
+                {t('Continue as guest')}
               </Button>
             )}
           </CardContent>

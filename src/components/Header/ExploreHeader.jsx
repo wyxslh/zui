@@ -1,5 +1,6 @@
 // react global
 import { Link, useNavigate, useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 // components
 import { Typography, Breadcrumbs } from '@mui/material';
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 function ExploreHeader() {
+  const { t } = useTranslation();
   const classes = useStyles();
   const navigate = useNavigate();
   const { name, reponame, tag } = useParams();
@@ -59,7 +61,7 @@ function ExploreHeader() {
       <Breadcrumbs separator="/" aria-label="breadcrumb">
         <Link to="/">
           <Typography variant="body1" className={classes.explore}>
-            Home
+            {t('Home')}
           </Typography>
         </Link>
         <Link to={repoLink}>

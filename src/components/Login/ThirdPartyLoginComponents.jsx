@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@mui/material/Button';
 import SvgIcon from '@mui/material/SvgIcon';
+import { useTranslation } from 'react-i18next';
 import githubLogo from '../../assets/GhIcon.svg';
 
 // styling
@@ -45,6 +46,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function GithubLoginButton({ handleClick }) {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
@@ -55,38 +57,41 @@ function GithubLoginButton({ handleClick }) {
       endIcon={<SvgIcon fontSize="medium">{githubLogo}</SvgIcon>}
       onClick={(e) => handleClick(e, 'github')}
     >
-      <span className={classes.buttonsText}>Continue with Github</span>
+      <span className={classes.buttonsText}>{t('Continue with Github')}</span>
     </Button>
   );
 }
 
 function GoogleLoginButton({ handleClick }) {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Button fullWidth variant="contained" className={classes.googleButton} onClick={(e) => handleClick(e, 'google')}>
-      <span className={classes.buttonsText}>Continue with Google</span>
+      <span className={classes.buttonsText}>{t('Continue with Google')}</span>
     </Button>
   );
 }
 
 function GitlabLoginButton({ handleClick }) {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Button fullWidth variant="contained" className={classes.button} onClick={(e) => handleClick(e, 'gitlab')}>
-      Sign in with Gitlab
+      {t('Sign in with Gitlab')}
     </Button>
   );
 }
 
 function OIDCLoginButton({ handleClick, oidcName }) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const loginWithName = oidcName || 'OIDC';
 
   return (
     <Button fullWidth variant="contained" className={classes.button} onClick={(e) => handleClick(e, 'oidc')}>
-      Sign in with {loginWithName}
+      {t('Sign in with {{name}}', { name: loginWithName })}
     </Button>
   );
 }

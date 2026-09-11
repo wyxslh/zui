@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import makeStyles from '@mui/styles/makeStyles';
 import { Grid, Button, FormControl, Menu, MenuItem, Box, Tab, InputBase, IconButton, ButtonBase } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -109,6 +111,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PullCommandButton(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   const { imageName, isArtifact } = props;
@@ -171,7 +174,7 @@ function PullCommandButton(props) {
 
   return isCopied ? (
     <Button className={classes.pullStringBoxCopied} data-testid="successPulled-buton">
-      Copied Pull Command
+      {t('Copied Pull Command')}
       <CheckCircleIcon />
     </Button>
   ) : (
@@ -181,7 +184,7 @@ function PullCommandButton(props) {
         className={`${classes.copyStringSelect} ${open && classes.copyStringSelectOpened}`}
         disableRipple
       >
-        Pull {imageName}
+        {t('Pull {{imageName}}', { imageName })}
         {getButtonIcon()}
       </ButtonBase>
       <Menu

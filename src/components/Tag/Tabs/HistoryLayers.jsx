@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 // components
 import { Stack, Typography } from '@mui/material';
 import LayerCard from '../../Shared/LayerCard.jsx';
@@ -22,6 +24,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function HistoryLayers(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const [historyData, setHistoryData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +43,7 @@ function HistoryLayers(props) {
   return (
     <>
       <Typography variant="h4" gutterBottom component="div" align="left" className={classes.title}>
-        Layers
+        {t('Layers')}
       </Typography>
       {isLoading ? (
         <Loading />
@@ -50,7 +53,7 @@ function HistoryLayers(props) {
             layers.map((layer, index) => <ArtifactFileCard key={`${layer?.digest}${index}`} layer={layer} />)
           ) : (
             <div>
-              <Typography className={classes.none}> No artifact files available </Typography>
+              <Typography className={classes.none}> {t('No artifact files available')} </Typography>
             </div>
           )}
         </Stack>
@@ -69,7 +72,7 @@ function HistoryLayers(props) {
             })
           ) : (
             <div>
-              <Typography className={classes.none}> No Layer data available </Typography>
+              <Typography className={classes.none}> {t('No Layer data available')} </Typography>
             </div>
           )}
         </Stack>

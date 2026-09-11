@@ -1,6 +1,8 @@
 // react global
 import React from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 // components
 import { Stack, Typography } from '@mui/material';
 
@@ -27,12 +29,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NoDataComponent({ text }) {
+  const { t } = useTranslation();
   const classes = useStyles();
 
   return (
     <Stack className={classes.noDataContainer}>
       <img src={nodataImage} className={classes.noDataImage} />
-      <Typography className={classes.noDataText}>{text ? text : 'No Data'}</Typography>
+      <Typography className={classes.noDataText}>{text ? text : t('No Data')}</Typography>
     </Stack>
   );
 }

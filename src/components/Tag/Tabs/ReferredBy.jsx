@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { isEmpty } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { Typography, Stack } from '@mui/material';
 import ReferrerCard from '../../Shared/ReferrerCard';
 import Loading from '../../Shared/Loading';
@@ -21,6 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function ReferredBy(props) {
+  const { t } = useTranslation();
   const { referrers } = props;
   const [referrersData, setReferrersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,14 +53,14 @@ function ReferredBy(props) {
         );
       })
     ) : (
-      <div>{!isLoading && <Typography className={classes.none}> Nothing found </Typography>}</div>
+      <div>{!isLoading && <Typography className={classes.none}> {t('Nothing found')} </Typography>}</div>
     );
   };
 
   return (
     <div data-testid="referred-by-container">
       <Typography variant="h4" gutterBottom component="div" align="left" className={classes.title}>
-        Referred By
+        {t('Referred By')}
       </Typography>
       <Stack direction="column" spacing={2}>
         <Stack direction="column" spacing={2}>

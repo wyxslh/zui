@@ -3,6 +3,7 @@ import React from 'react';
 import transform from '../../utilities/transform';
 import { DateTime } from 'luxon';
 import { Markdown } from 'utilities/MarkdowntojsxWrapper';
+import { useTranslation } from 'react-i18next';
 
 import { Card, CardContent, Grid, Typography, Tooltip } from '@mui/material';
 import PullCommandButton from 'components/Shared/PullCommandButton';
@@ -51,16 +52,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function TagDetailsMetadata(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const { platform, lastUpdated, lastTagged, size, license, imageName, isArtifact } = props;
 
   const lastDate = lastUpdated
     ? DateTime.fromISO(lastUpdated).toRelative({ unit: ['weeks', 'days', 'hours', 'minutes'] })
-    : `Timestamp N/A`;
+    : t('Timestamp N/A');
 
   const lastTaggedDate = lastTagged
     ? DateTime.fromISO(lastTagged).toRelative({ unit: ['weeks', 'days', 'hours', 'minutes'] })
-    : `Timestamp N/A`;
+    : t('Timestamp N/A');
 
   return (
     <Grid container spacing={'1rem'} data-testid="tagDetailsMetadata-container">
@@ -75,7 +77,7 @@ function TagDetailsMetadata(props) {
         <Card variant="outlined" className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" align="left" className={classes.metadataHeader}>
-              OS/Arch
+              {t('OS/Arch')}
             </Typography>
             <Typography variant="body1" className={classes.metadataBody}>
               {platform?.Os || `----`} / {platform?.Arch || `----`}
@@ -87,7 +89,7 @@ function TagDetailsMetadata(props) {
         <Card variant="outlined" className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Typography variant="body2" align="left" className={classes.metadataHeader}>
-              Total Size
+              {t('Total Size')}
             </Typography>
             <Typography variant="body1" align="left" className={classes.metadataBody}>
               {transform.formatBytes(size) || `----`}
@@ -100,7 +102,7 @@ function TagDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                Created
+                {t('Created')}
               </Typography>
               <Tooltip title={lastUpdated?.slice(0, 16) || ' '} placement="top">
                 <Typography variant="body1" align="left" className={classes.metadataBody}>
@@ -114,7 +116,7 @@ function TagDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                Last Tagged
+                {t('Last Tagged')}
               </Typography>
               <Tooltip title={lastTagged?.slice(0, 16) || ' '} placement="top">
                 <Typography variant="body1" align="left" className={classes.metadataBody}>
@@ -130,11 +132,11 @@ function TagDetailsMetadata(props) {
           <Card variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
               <Typography variant="body2" align="left" className={classes.metadataHeader}>
-                License
+                {t('License')}
               </Typography>
               <Tooltip title={license || ' '} placement="top">
                 <Typography variant="body1" align="left" className={classes.metadataBody}>
-                  {license ? <Markdown>{license}</Markdown> : `License info not available`}
+                  {license ? <Markdown>{license}</Markdown> : t('License info not available')}
                 </Typography>
               </Tooltip>
             </CardContent>

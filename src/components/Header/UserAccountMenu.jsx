@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 
 import { Menu, MenuItem, IconButton, Avatar, Divider } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import { getLoggedInUser, logoutUser, isApiKeyEnabled } from '../../utilities/authUtilities';
 import { useNavigate } from 'react-router';
 
 function UserAccountMenu() {
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -46,11 +48,11 @@ function UserAccountMenu() {
         <Divider />
         {isApiKeyEnabled() && (
           <MenuItem onClick={apiKeyManagement} data-testid="api-keys-menu-item">
-            API Keys
+            {t('API Keys')}
           </MenuItem>
         )}
         {isApiKeyEnabled() && <Divider data-testid="api-keys-menu-item-divider" />}
-        <MenuItem onClick={logoutUser}>Log out</MenuItem>
+        <MenuItem onClick={logoutUser}>{t('Log out')}</MenuItem>
       </Menu>
     </>
   );

@@ -4,6 +4,7 @@ import transform from 'utilities/transform';
 
 import { Card, CardContent, Typography, Grid, Divider, Stack, Collapse } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowRight } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@mui/styles/makeStyles';
 
@@ -90,6 +91,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 function LayerCard(props) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const { layer, historyDescription } = props;
   const [open, setOpen] = useState(false);
@@ -123,17 +125,17 @@ function LayerCard(props) {
               ) : (
                 <KeyboardArrowDown className={classes.dropdownText} />
               )}
-              <Typography className={classes.dropdownButton}>DETAILS</Typography>
+              <Typography className={classes.dropdownButton}>{t('DETAILS')}</Typography>
             </Stack>
             <Collapse in={open} timeout="auto" unmountOnExit sx={{ marginTop: '1rem' }}>
               <Stack direction="column" spacing="1.2rem">
-                <Typography variant="body1">Command</Typography>
+                <Typography variant="body1">{t('Command')}</Typography>
                 <Typography variant="body1" align="left" className={classes.dropdownContentBox}>
                   {historyDescription.CreatedBy}
                 </Typography>
                 {!historyDescription.EmptyLayer && (
                   <>
-                    <Typography variant="body1">DIGEST</Typography>
+                    <Typography variant="body1">{t('DIGEST')}</Typography>
                     <Typography variant="body1" align="left" className={classes.dropdownContentBox}>
                       {layer.Digest}
                     </Typography>
